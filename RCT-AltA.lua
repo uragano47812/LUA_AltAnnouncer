@@ -179,8 +179,6 @@ local function loop()
             end
         end
     end
-    local mem = collectgarbage("count")
-    print("Mem: ", mem)
 end
 --------------------------------------------------------------------------------
 local function init()
