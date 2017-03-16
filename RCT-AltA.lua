@@ -21,6 +21,7 @@ collectgarbage()
 -- Locals for application
 local trans11, inter, altSwitch, altSe, altSeId, altSePa, maxAlt
 local selFt, step, oldStep, alt, selFtIndex, selFtSt = false, 0, 0, 0
+local shortAnn, shortAnnIndex, shortAnnSt = false
 local sensorLalist = { "..." }
 local sensorIdlist = { "..." }
 local sensorPalist = { "..." }
@@ -93,6 +94,17 @@ local function selFtClicked(value)
         pSave("selFtSt", 0)
     end
 end
+
+local function shortAnnClicked(value)
+    local pSave = system.pSave
+    shortAnn = not value
+    form.setValue(shortAnnIndex, shortAnn)
+    if(shortAnn) then
+        pSave("shortAnnSt", 1)
+        else
+        pSave("shortAnnSt", 0)
+    end
+end
 --------------------------------------------------------------------------------
 -- Draw the main form (Application inteface)
 local function initForm()
@@ -125,6 +137,10 @@ local function initForm()
         addLabel({label=trans11.selFeet, width=270})
         selFtIndex = addCheckbox(selFt, selFtClicked)
         
+        form.addRow(2)
+        addLabel({label=trans11.shortAnn, width=270})
+        shortAnnIndex = addCheckbox(shortAnn, shortAnnClicked)
+        
         addRow(1)
         addLabel({label="Powered by RC-Thoughts.com - v."..altAnnVersion.." ", font=FONT_MINI, alignRight=true})
         else
@@ -148,13 +164,23 @@ local function loop()
             if(step > oldStep) then
                 oldStep = step
                 if(selFt) then
-                    system.playNumber(alt, 0, "ft", "Altitude")
+                    if(shortAnn) then
+                        system.playNumber(alt, 0, "ft")
+                        else
+                        system.playNumber(alt, 0, "ft", "Altitude")
+                    end
                     else
-                    system.playNumber(alt, 0, "m", "Altitude")
+                    if(shortAnn) then
+                        system.playNumber(alt, 0, "m")
+                        else
+                        system.playNumber(alt, 0, "m", "Altitude")
+                    end
                 end
             end
         end
     end
+    local mem = collectgarbage("count")
+    print("Mem: ", mem)
 end
 --------------------------------------------------------------------------------
 local function init()
@@ -166,17 +192,23 @@ local function init()
     altSeId = pLoad("altSeId", 0)
     altSePa = pLoad("altSePa", 0)
     selFtSt = pLoad("selFtSt", 0)
+    shortAnnSt = pLoad("shortAnnSt", 0)
     if(selFtSt == 1) then
         selFt = true
         else
         selFt = false
+    end
+    if(shortAnnSt == 1) then
+        shortAnn = true
+        else
+        shortAnn = false
     end
     system.registerForm(1, MENU_APPS, trans11.appName, initForm)
     readSensors()
     collectgarbage()
 end
 --------------------------------------------------------------------------------
-altAnnVersion = "1.0"
+altAnnVersion = "1.1"
 setLanguage()
 collectgarbage()
 return {init=init, loop=loop, author="RC-Thoughts", version=altAnnVersion, name=trans11.appName}
