@@ -1,7 +1,7 @@
 --[[
 	---------------------------------------------------------
     AltAnnouncer makes voice announcement of altitude with
-    by user set intevals when model goes up. 
+    by user set intevals when model goes up or up and down.
     
     App is a request for glider-towing.
     
@@ -10,6 +10,7 @@
     Works in DC/DS-14/16/24
     
     Czech translation by Michal Hutnik
+    German translation by Norbert Kolb
 	---------------------------------------------------------
 	Localisation-file has to be as /Apps/Lang/RCT-AltA.jsn
 	---------------------------------------------------------
@@ -24,6 +25,7 @@ collectgarbage()
 local trans11, inter, altSwitch, altSe, altSeId, altSePa, maxAlt
 local selFt, step, oldStep, alt, selFtIndex, selFtSt = false, 0, 0, 0
 local shortAnn, shortAnnIndex, shortAnnSt = false
+local annDn, annDnIndex, annDnSt = false
 local sensorLalist = { "..." }
 local sensorIdlist = { "..." }
 local sensorPalist = { "..." }
@@ -86,6 +88,17 @@ local function sensorChanged(value)
     pSave("altSePa", altSePa)
 end
 
+local function annDnClicked(value)
+    local pSave = system.pSave
+    annDn = not value
+    form.setValue(annDnIndex, annDn)
+    if(annDn) then
+        pSave("annDnSt", 1)
+        else
+        pSave("annDnSt", 0)
+    end
+end
+
 local function selFtClicked(value)
     local pSave = system.pSave
     selFt = not value
@@ -136,6 +149,10 @@ local function initForm()
         addIntbox(maxAlt, -0, 10000, 0, 0, 50, maxAltChanged)
         
         form.addRow(2)
+        addLabel({label=trans11.annDn, width=270})
+        annDnIndex = addCheckbox(annDn, annDnClicked)
+        
+        form.addRow(2)
         addLabel({label=trans11.selFeet, width=270})
         selFtIndex = addCheckbox(selFt, selFtClicked)
         
@@ -179,6 +196,22 @@ local function loop()
                     end
                 end
             end
+            if(annDn and step < oldStep and alt > 1) then
+                oldStep = step
+                if(selFt) then
+                    if(shortAnn) then
+                        system.playNumber(alt, 0, "ft")
+                        else
+                        system.playNumber(alt, 0, "ft", "Altitude")
+                    end
+                    else
+                    if(shortAnn) then
+                        system.playNumber(alt, 0, "m")
+                        else
+                        system.playNumber(alt, 0, "m", "Altitude")
+                    end
+                end
+            end
         end
     end
     collectgarbage()
@@ -187,13 +220,20 @@ end
 local function init()
     local pLoad = system.pLoad
 	altSwitch = pLoad("altSwitch")
+    altSwitch2 = pLoad("altSwitch2")
     inter = pLoad("inter", 0)
     maxAlt = pLoad("maxAlt", 0)
     altSe = pLoad("altSe", 0)
     altSeId = pLoad("altSeId", 0)
     altSePa = pLoad("altSePa", 0)
+    annDnSt = pLoad("annDnSt", 0)
     selFtSt = pLoad("selFtSt", 0)
     shortAnnSt = pLoad("shortAnnSt", 0)
+    if(annDnSt == 1) then
+        annDn = true
+        else
+        annDn = false
+    end
     if(selFtSt == 1) then
         selFt = true
         else
@@ -209,7 +249,7 @@ local function init()
     collectgarbage()
 end
 --------------------------------------------------------------------------------
-altAnnVersion = "1.4"
+altAnnVersion = "1.5"
 setLanguage()
 collectgarbage()
 return {init=init, loop=loop, author="RC-Thoughts", version=altAnnVersion, name=trans11.appName}

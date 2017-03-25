@@ -6,6 +6,7 @@
     "sw":"Select Switch",
 	"inter":"Activate Every (m/ft)",
     "maxAltTr":"Max. Altitude (m/ft)",
+    "annDn":"Announce Down",
 	"selFeet":"Use feet (Default is meter)",
     "shortAnn":"Short Announcement"
   },
@@ -15,6 +16,7 @@
     "sw":"Přepínač",
     "inter":"Krok (m/ft)",
     "maxAltTr":"Max. výška (m/ft)",
+    "annDn":"Oznámit dolů",
     "selFeet":"Hlášení ve stopách (ft)",
     "shortAnn":"Zkrácené hlášení"
   },
@@ -24,6 +26,7 @@
     "sw":"Schalter",
     "inter":"Ansage alle (m/ft)",
     "maxAltTr":"Max. Höhe (m/ft)",
+    "annDn":"Sinken ansagen",
     "selFeet":"Ansage in ft",
     "shortAnn":"Kurzansage"
  }
