@@ -17,5 +17,14 @@
     "maxAltTr":"Max. výška (m/ft)",
     "selFeet":"Hlášení ve stopách (ft)",
     "shortAnn":"Zkrácené hlášení"
-  }
+  },
+  "de":{
+    "appName":"RCT Höhenansage",
+    "altSensor":"Höhensensor",
+    "sw":"Schalter",
+    "inter":"Ansage alle (m/ft)",
+    "maxAltTr":"Max. Höhe (m/ft)",
+    "selFeet":"Ansage in ft",
+    "shortAnn":"Kurzansage"
+ }
 }

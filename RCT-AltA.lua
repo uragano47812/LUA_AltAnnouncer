@@ -209,7 +209,7 @@ local function init()
     collectgarbage()
 end
 --------------------------------------------------------------------------------
-altAnnVersion = "1.3"
+altAnnVersion = "1.4"
 setLanguage()
 collectgarbage()
 return {init=init, loop=loop, author="RC-Thoughts", version=altAnnVersion, name=trans11.appName}
