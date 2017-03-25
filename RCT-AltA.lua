@@ -8,6 +8,8 @@
     Requires transmitter firmware 4.22 or higher.
     
     Works in DC/DS-14/16/24
+    
+    Czech translation by Michal Hutnik
 	---------------------------------------------------------
 	Localisation-file has to be as /Apps/Lang/RCT-AltA.jsn
 	---------------------------------------------------------
@@ -179,6 +181,7 @@ local function loop()
             end
         end
     end
+    collectgarbage()
 end
 --------------------------------------------------------------------------------
 local function init()
@@ -206,7 +209,7 @@ local function init()
     collectgarbage()
 end
 --------------------------------------------------------------------------------
-altAnnVersion = "1.1"
+altAnnVersion = "1.3"
 setLanguage()
 collectgarbage()
 return {init=init, loop=loop, author="RC-Thoughts", version=altAnnVersion, name=trans11.appName}

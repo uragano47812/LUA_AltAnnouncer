@@ -6,8 +6,16 @@
     "sw":"Select Switch",
 	"inter":"Activate Every (m/ft)",
     "maxAltTr":"Max. Altitude (m/ft)",
-    "altCtrl":"Altitude Interval",
 	"selFeet":"Use feet (Default is meter)",
     "shortAnn":"Short Announcement"
+  },
+  "cz":{
+    "appName":"RCT Hlásič výšky",
+    "altSensor":"Zvolit senzor",
+    "sw":"Přepínač",
+    "inter":"Krok (m/ft)",
+    "maxAltTr":"Max. výška (m/ft)",
+    "selFeet":"Hlášení ve stopách (ft)",
+    "shortAnn":"Zkrácené hlášení"
   }
 }
