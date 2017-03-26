@@ -22,7 +22,7 @@
 collectgarbage()
 --------------------------------------------------------------------------------
 -- Locals for application
-local trans11, inter, altSwitch, altSe, altSeId, altSePa, maxAlt
+local trans11, inter, altSwitch, altSe, altSeId, altSePa, maxAlt, minAlt
 local selFt, step, oldStep, alt, selFtIndex, selFtSt = false, 0, 0, 0
 local shortAnn, shortAnnIndex, shortAnnSt = false
 local annDn, annDnIndex, annDnSt = false
@@ -65,6 +65,12 @@ local function interChanged(value)
     local pSave = system.pSave
 	inter = value
 	pSave("inter", value)
+end
+
+local function minAltChanged(value)
+    local pSave = system.pSave
+	minAlt = value
+	pSave("minAlt", value)
 end
 
 local function maxAltChanged(value)
@@ -145,8 +151,12 @@ local function initForm()
         addIntbox(inter, -0, 1000, 0, 0, 1, interChanged)
         
         addRow(2)
+        addLabel({label=trans11.minAltTr, width=220})
+        addIntbox(minAlt, -0, 10000, 0, 0, 1, minAltChanged)
+        
+        addRow(2)
         addLabel({label=trans11.maxAltTr, width=220})
-        addIntbox(maxAlt, -0, 10000, 0, 0, 50, maxAltChanged)
+        addIntbox(maxAlt, -0, 10000, 0, 0, 1, maxAltChanged)
         
         form.addRow(2)
         addLabel({label=trans11.annDn, width=270})
@@ -178,7 +188,7 @@ local function loop()
             step = 0
             oldStep = 0
         end
-        if(swi and swi == 1 and alt < maxAlt) then
+        if(swi and swi == 1 and alt >= minAlt and alt <= maxAlt) then
             local step = math.modf(alt / inter)
             if(step > oldStep) then
                 oldStep = step
@@ -222,6 +232,7 @@ local function init()
 	altSwitch = pLoad("altSwitch")
     altSwitch2 = pLoad("altSwitch2")
     inter = pLoad("inter", 0)
+    minAlt = pLoad("maxAlt", 0)
     maxAlt = pLoad("maxAlt", 0)
     altSe = pLoad("altSe", 0)
     altSeId = pLoad("altSeId", 0)
@@ -249,7 +260,7 @@ local function init()
     collectgarbage()
 end
 --------------------------------------------------------------------------------
-altAnnVersion = "1.5"
+altAnnVersion = "1.6"
 setLanguage()
 collectgarbage()
 return {init=init, loop=loop, author="RC-Thoughts", version=altAnnVersion, name=trans11.appName}
