@@ -232,7 +232,7 @@ local function init()
 	altSwitch = pLoad("altSwitch")
     altSwitch2 = pLoad("altSwitch2")
     inter = pLoad("inter", 0)
-    minAlt = pLoad("maxAlt", 0)
+    minAlt = pLoad("minAlt", 0)
     maxAlt = pLoad("maxAlt", 0)
     altSe = pLoad("altSe", 0)
     altSeId = pLoad("altSeId", 0)
@@ -260,7 +260,7 @@ local function init()
     collectgarbage()
 end
 --------------------------------------------------------------------------------
-altAnnVersion = "1.6"
+altAnnVersion = "1.7"
 setLanguage()
 collectgarbage()
 return {init=init, loop=loop, author="RC-Thoughts", version=altAnnVersion, name=trans11.appName}
