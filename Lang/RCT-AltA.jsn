@@ -32,5 +32,15 @@
     "annDn":"Sinken ansagen",
     "selFeet":"Ansage in ft",
     "shortAnn":"Kurzansage"
+ },
+ "it":{
+ "appName":"RCT Segnalatore di Quota",
+    "altSensor":"Seleziona il Sensore di Altitudine",
+    "sw":"Seleziona interruttore",
+	"inter":"Avvisa ogni (m/ft)",
+    "minAltTr":"Altitudine Min. (m/ft)",
+    "maxAltTr":"Altitudine Max. (m/ft)",
+    "annDn":"Avvisa Perdita di quota",
+	"selFeet":"Misura in piedi (ft) (predefinito in metri)",
+    "shortAnn":"Messaggio abbreviato"
  }
-}
